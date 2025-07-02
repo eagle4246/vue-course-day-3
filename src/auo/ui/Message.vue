@@ -1,24 +1,28 @@
 <script setup>
 import { ref } from 'vue';
-defineProps({
+
+const props = defineProps({
   user: String,
-  age: Number,
 });
-let count = ref(0);
+
+const emit = defineEmits(['counterUpdate'])
+let counter = ref(0);
 
 const increment = () => {
-  count.value++;
+  counter.value++;
+  emit('counterUpdate', props.user, counter.value)
 };
 
 const decrement = () => {
-  count.value--;
+  counter.value--;
+  emit('counterUpdate', props.user, counter.value)
 };
 </script>
 
 <template>
-  <div>Hello {{ user }}, {{ age }}</div>
+  <div>Hello {{ user }}</div>
   <button @click="decrement">-</button>
-  count{{ count }}
+  {{ counter }}
   <button @click="increment">+</button>
 </template>
 <style scoped>
